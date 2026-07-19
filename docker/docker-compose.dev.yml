@@ -2,21 +2,21 @@ version: '3.7'
 services:
   postgres:
     image: postgres:12
-    container_name: postgres
+    container_name: ${COMPOSE_PROJECT_NAME:-ghostfolio}-postgres
     restart: unless-stopped
     env_file:
       - ../.env
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT:-5432}:5432
     volumes:
       - postgres:/var/lib/postgresql/data
 
   redis:
     image: 'redis:alpine'
-    container_name: redis
+    container_name: ${COMPOSE_PROJECT_NAME:-ghostfolio}-redis
     restart: unless-stopped
     ports:
-      - 6379:6379
+      - ${REDIS_PORT:-6379}:6379
 
 volumes:
   postgres:
